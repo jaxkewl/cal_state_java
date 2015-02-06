@@ -76,7 +76,7 @@ public class Client2 extends JFrame {
 		displayMessage("Attempting connection\n");
 
 		// create Socket to make connection to server
-		client = new Socket(InetAddress.getByName(chatServer), 12345);
+		client = new Socket(InetAddress.getByName(chatServer), 12346);
 
 		// display connection information
 		displayMessage("Connected to: " + client.getInetAddress().getHostName());

@@ -16,12 +16,11 @@ import java.util.Random;
  *
  * @author Amir
  */
-public class NetworkingClientThreaded {
-
+public class NetworkingClientThreaded2 {
+	int counter = 0;
 	ObjectInputStream input;
 	ObjectOutputStream output;
 	Socket client;
-	int counter = 0;
 
 	/**
 	 * @param args
@@ -29,27 +28,22 @@ public class NetworkingClientThreaded {
 	 */
 	public static void main(String[] args) {
 		System.out.println("running client app");
-		NetworkingClientThreaded myapp = new NetworkingClientThreaded();
+		NetworkingClientThreaded2 myapp = new NetworkingClientThreaded2();
 	}
 
-	public NetworkingClientThreaded() {
+	public NetworkingClientThreaded2() {
 
 		try {
 			System.out.println("attempting to connect");
-			client = new Socket("127.0.0.1", 12345);
+			client = new Socket("127.0.0.1", 12346);
 			System.out.println("Connected to server on port "
 					+ client.getPort());
 
-			// make sure to setup the output stream first because the server is
-			// waiting for it.
-			// if we setup the input stream first, then both the server and
-			// client are both waiting.
 			output = new ObjectOutputStream(client.getOutputStream());
-			output.writeObject("Homer Simpson : This is from Client "
+			output.writeObject("Bart Simpson : This is from Client "
 					+ client.getLocalPort());
 			output.flush();
 
-			// now setup the input stream.
 			input = new ObjectInputStream(client.getInputStream());
 
 			listenForInputs();
@@ -70,18 +64,19 @@ public class NetworkingClientThreaded {
 		String serverText;
 
 		while (true) {
+			System.out.println("listening for input...");
 			// listen for inputs from the client here
+
 			try {
-				System.out.println("listening for input...");
 				// read input and output it to the console
 				serverText = (String) input.readObject();
 
 				System.out.println("Server has written: " + serverText);
 				Random sleepTimer = new Random();
-				Thread.sleep(sleepTimer.nextInt(9000));
+				Thread.sleep(sleepTimer.nextInt(10000));
 
 				// every now and then write something out to the clients
-				
+
 				counter++;
 				output.writeObject(counter + " hello from the server "
 						+ client.getLocalPort());

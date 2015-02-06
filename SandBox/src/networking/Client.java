@@ -28,7 +28,7 @@ public class Client extends JFrame {
 	private String message = "";
 	private String chatServer;
 	private Socket client;
-	private int portNum = 1234;
+	private int portNum = 12345;
 
 	public Client(String host) {
 		// TODO Auto-generated constructor stub
